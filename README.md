@@ -1,6 +1,6 @@
 # malariaibm-spatial-BurkinaFaso-2021
 
-Repository to accompany "Long-term effects of increased adoption of artemisinin combination therapies in Burkina Faso"
+Repository to accompany Zupko et al. (2021) "Long-term effects of increased adoption of artemisinin combination therapies in Burkina Faso"
 
 [Penn State](https://www.psu.edu/) - [Center for Infectious Disease Dynamics (CIDD)](https://www.huck.psu.edu/institutes-and-centers/center-for-infectious-disease-dynamics) - [Boni Lab](http://mol.ax/)
 
