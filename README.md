@@ -6,6 +6,12 @@ Repository to accompany Zupko et al. (2021) "Long-term effects of increased adop
 
 ---
 
+# Overview
+
+This repository contains a frozen snapshot of the code and intermediate data used to prepare the manuscript. Due to the size of the intermediate data (349 MB) this repository uses [Git Large File Storage](https://git-lfs.github.com/) and may be limited in terms of bandwidth as a result. 
+
+# Organization
+
 ### Original Repositories
 - Malaria Simulation, version 4.0: https://github.com/rjzupkoii/PSU-CIDD-Malaria-Simulation
 - Burkina Faso analysis and plots: https://github.com/rjzupkoii/PSU-CIDD-Burkina-Faso
