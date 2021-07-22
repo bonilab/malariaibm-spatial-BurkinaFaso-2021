@@ -1,0 +1,20 @@
+build*
+bin
+.idea
+.vscode
+.vs
+node_modules
+Testing
+cmake-*
+monthly_data\.txt
+
+.DS_Store
+
+reporter\.txt
+
+# Ignore the backups of diagrams
+documentation/*.uml~
+database/*.bak
+
+# Ingore the "default" output directory
+out
