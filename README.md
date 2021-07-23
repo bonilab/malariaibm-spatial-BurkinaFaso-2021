@@ -32,8 +32,9 @@ Contents of the Study directory are organized in the following fasion:
 | Drug Policy | Rapid Private Market Elimination, Rapid 60% AL/40% DHA-PPQ MFT | Drug Policies/bfa-90-al-10-dp.yml |
 | Drug Policy | Rapid Private Market Elimination, AL Only First-line Therapy | Drug Policies/bfa-90-al-10-dp.yml |
 
+---
+
 ### Original Repositories
 - Malaria Simulation, version 4.0: https://github.com/rjzupkoii/PSU-CIDD-Malaria-Simulation
 - Burkina Faso analysis and plots: https://github.com/rjzupkoii/PSU-CIDD-Burkina-Faso
 - Support scripts and infrastructure: https://github.com/bonilab/PSU-CIDD-MaSim-Support
-
