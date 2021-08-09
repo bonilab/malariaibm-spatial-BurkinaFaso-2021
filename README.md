@@ -17,3 +17,6 @@ This repository contains a frozen snapshot of the code and intermediate data use
 - Burkina Faso analysis and plots: https://github.com/rjzupkoii/PSU-CIDD-Burkina-Faso
 - Support scripts and infrastructure: https://github.com/bonilab/PSU-CIDD-MaSim-Support
 
+# Sources
+
+Adam Auton (2021). Red Blue Colormap (https://www.mathworks.com/matlabcentral/fileexchange/25536-red-blue-colormap), MATLAB Central File Exchange. Retrieved August 9, 2021.

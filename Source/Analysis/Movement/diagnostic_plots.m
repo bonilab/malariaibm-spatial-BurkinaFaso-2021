@@ -98,10 +98,10 @@ function [] = plot_trips_heatmap(filename, map_filename)
     % Plot the heatmap
     hm = heatmap(map, 'Colormap', parula);
     hm.MissingDataColor = [1.0 1.0 1.0];
-    hm.Title = "Modeled Trips to Desitnation Cell Cummulative for One Month";
+    hm.Title = "Modeled Trips to Destination Cell Cumulative for One Month";
     hm.XDisplayLabels = repmat(' ', cols, 1); 
     hm.YDisplayLabels = repmat(' ', rows, 1);
     grid off;
     graphic = gca;
-    graphic.FontSize = 24;
+    graphic.FontSize = 26;
 end

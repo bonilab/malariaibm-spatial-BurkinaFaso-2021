@@ -14,7 +14,7 @@ function [] = plot_heatmaps(directory, startdate)
         set(gcf, 'Position',  [0, 0, 2560, 1440]);
         print('-dtiff', '-r300', sprintf('out/%s-heatmap.png', file));
         clf;
-        close;
+        close;        
     end
 end
 
@@ -54,8 +54,8 @@ function [hm] = generate(raw, date, startDate)
     title = datestr(datetime(days, 'ConvertFrom', 'datenum'), 'mmmm yyyy');
 
     % Plot the heatmap and color bar
-    hm = heatmap(map, 'MissingDataColor', [1.0 1.0 1.0]);
-    hm.Colormap = colormap(flipud(autumn));
+    hm = heatmap(map, 'MissingDataColor', [235 235 235] / 255);
+    hm.Colormap = redblue(64);
 	caxis(hm, [min(raw(:, 4)) max(raw(:, 4))]);
     
     % Apply the formatting
