@@ -55,7 +55,7 @@ function [hm] = generate(raw, date, startDate)
 
     % Plot the heatmap and color bar
     hm = heatmap(map, 'MissingDataColor', [235 235 235] / 255);
-    hm.Colormap = redblue(64);
+    hm.Colormap = whitebluered(100);
 	caxis(hm, [min(raw(:, 4)) max(raw(:, 4))]);
     
     % Apply the formatting
