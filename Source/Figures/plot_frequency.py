@@ -52,7 +52,13 @@ def prepare(filter, genotypes):
         # Read the file, prepare the dates if we haven't already
         temp = pd.read_csv(file)
         if dates is None:
+            
+            # Get the list of dates, clip the first one so that the plot is cleanly aligned with the y-axis
+            # as opposed to having a blank space
             dates = temp.days.unique().tolist()
+            dates = dates[1:]
+
+            # Prepare the rest of the data structure
             for genotype in genotypes.keys():
                 for date in dates:
                     data[genotype][date] = []
@@ -84,7 +90,7 @@ def plot(studyDate, title, filename, data, dates, replicates):
     axes.set_yscale('log')
     axes.set_xlim([min(dates), max(dates)])
     axes.set_title(title)
-    axes.set_ylabel('Genotype Frequency (log$_{10}$)')
+    axes.set_ylabel('Genotype Frequency')
     axes.set_xlabel('Model Year')
 
     # Generate the plot
