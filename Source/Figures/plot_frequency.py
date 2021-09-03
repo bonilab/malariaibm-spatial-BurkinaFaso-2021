@@ -78,7 +78,10 @@ def prepare(filter, genotypes):
     return data, dates, replicates
 
 
-def plot(studyDate, title, filename, data, dates, replicates):
+def plot(studyDate, title, filename, data, dates, replicates, type='median'):
+
+    # Based on Tol color palette
+    colors = ['#DDCC77', '#882255', '#44AA99', '#332288' ]
 
     # Format the dates
     startDate = datetime.datetime.strptime(studyDate, "%Y-%m-%d")
@@ -94,12 +97,25 @@ def plot(studyDate, title, filename, data, dates, replicates):
     axes.set_xlabel('Model Year')
 
     # Generate the plot
+    colorIndex = 0
     for genotype in data:
-        sums = [sum(x) for x in data[genotype].values()]
-        sums = np.true_divide(sums, replicates)
-        plt.plot(dates, sums, label=genotype)
 
-        results = iqr(data[genotype], [10, 90])
+        # Find the plot line that we are generating
+        if type == 'median':
+            plotData = [np.median(x) for x in data[genotype].values()]
+        elif type == 'mean':
+            sums = [sum(x) for x in data[genotype].values()]
+            sums = np.true_divide(sums, replicates)
+        else:
+            sys.stderr.write("Unknown plot type: {}".format(type))
+            sys.exit(-1)
+
+        # Plot the line and update the color index
+        plt.plot(dates, plotData, label=genotype, linewidth=2, color=colors[colorIndex])
+        colorIndex += 1
+        
+        # Plot the 95% range around the plot line
+        results = iqr(data[genotype], [2.5, 97.5])
         color = scale_luminosity(plt.gca().lines[-1].get_color(), 1)
         plt.fill_between(dates, results[0], results[1], alpha=0.5, facecolor=color)
 
@@ -107,6 +123,7 @@ def plot(studyDate, title, filename, data, dates, replicates):
     plt.legend(frameon=False)
     plt.savefig(filename)
     plt.close()
+    print("Generated plot with {} line".format(type))
     print("Saved as: {}".format(filename))
 
 

@@ -14,7 +14,7 @@ from matplotlib import rc_file
 from pathlib import Path
 
 
-def plot_core(filter, yaxis, filename):
+def plot_core(filter, yaxis, filename, showmeans=True):
     labels  = ['Baseline', 
         '10 year AL/DP MFT', 
         'Rapid AL/DP MFT',
@@ -24,20 +24,20 @@ def plot_core(filter, yaxis, filename):
         'Rapid Private Market Elimination',
         'Rapid Private Market Elimination,\n10 year AL/DP MFT',
         'Rapid Private Market Elimination,\nRapid AL/DP MFT']
-    plot(filter, yaxis, filename, labels)
+    plot(filter, yaxis, filename, labels, showmeans)
 
 
-def plot_mft(filter, yaxis, filename):
+def plot_mft(filter, yaxis, filename, showmeans=True):
     labels = ['50% AL / 50% DHA-PPQ MFT',
         '60% AL / 40% DHA-PPQ MFT',
         '70% AL / 30% DHA-PPQ MFT',
         '80% AL / 20% DHA-PPQ MFT',
         '90% AL / 10% DHA-PPQ MFT',
         'AL Only']
-    plot(filter, yaxis, filename, labels)
+    plot(filter, yaxis, filename, labels, showmeans)
 
 
-def plot(filter, yaxis, filename, labels):
+def plot(filter, yaxis, filename, labels, showmeans):
     # Set our formatting
     rc_file("matplotlibrc-violin")
 
@@ -61,7 +61,10 @@ def plot(filter, yaxis, filename, labels):
     
     # Format the sub plots
     for ax, (il, l) in zip(axs.flat, enumerate(data_labels)):
-        ax.violinplot(data[:,:,il].T, positions=range(len(years)))
+        if showmeans:
+            ax.violinplot(data[:,:,il].T, positions=range(len(years)), showmeans=True)
+        else:
+            ax.violinplot(data[:,:,il].T, positions=range(len(years)))
         ax.set_xticks(range(len(years)))
         ax.set_xticklabels(years)
         if il % 3 == 0:
@@ -115,13 +118,13 @@ if __name__ == "__main__":
     if not os.path.isfile("data/yr2025_clinical.csv"):
         prep_pfpr_clinical()
     plot_core("yr{}_pfpr.csv", "$\it{Pf}$PR$_{2-10}$", "out/bfa-2025to2035-pfpr.png")
-    plot_core("yr{}_clinical.csv", "Clinical Cases per 1000", "out/bfa-2025to2035-clinical.png")
+    plot_core("yr{}_clinical.csv", "Clinical Cases per 1000", "out/bfa-2025to2035-clinical.png", False)
 
-    # Plots that should have data from Matlab
+    # Plots that should have data from Matlab, plasmespin needs to be plotted without means
     plot_core("yr{}_580y.csv", "580Y Frequency", "out/bfa-2025to2035-580y.png")
     plot_core("yr{}_knf_plasmepsin.csv", "Frequency of \n 3x3$\it{knf}$ and multicopy $\it{Plasmepsin}$ 2,3", "out/bfa-2025_2035-3x3_knf_plasmepsin.png")
     plot_core("yr{}_knf.csv", "Frequency of \n$\it{Pfcrt}$-k76 $\it{Pfmrd}$1-N86 $\it{Pfmrd}$1-184F", "out/bfa-2025_2035-3x3_knf.png")
-    plot_core("yr{}_plasmespin.csv", "Frequency of \nmulticopy $\it{Plasmepsin}$ 2,3", "out/bfa-2025to2035-plasmepsin.png")
+    plot_core("yr{}_plasmespin.csv", "Frequency of \nmulticopy $\it{Plasmepsin}$ 2,3", "out/bfa-2025to2035-plasmepsin.png", False)
     plot_core("yr{}_tmfailures.csv", "Treatment Failure Rate", "out/bfa-2025to2035-treatmentfailures.png")
     
     plot_mft("yr{}_mft_580y.csv", "580Y Frequency", "out/bfa-2025to2035-mft-580y.png")

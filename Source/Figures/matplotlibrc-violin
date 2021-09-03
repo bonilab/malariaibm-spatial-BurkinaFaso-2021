@@ -1,14 +1,14 @@
 font.family  : monospace
-font.size    : 20.0
+font.size    : 28.0
 
 font.monospace  : Ubuntu Mono, DejaVu Sans Mono, Andale Mono, monospace
 
 lines.linewidth : 2
 
 axes.grid          : True   ## display grid or not
-axes.titlesize     : 20     ## fontsize of the axes title
+axes.titlesize     : 24     ## fontsize of the axes title
 axes.titlepad      : 18     ## pad between axes and title in points
-axes.labelsize     : 20     ## fontsize of the x any y labels
+axes.labelsize     : 24     ## fontsize of the x any y labels
 axes.labelpad      : 10     ## space between label and axis
 axes.xmargin       : .1
 axes.ymargin       : .1
@@ -20,7 +20,7 @@ grid.alpha     : 0.4
 
 ## legend
 legend.framealpha    : 0.7      ## legend patch transparency
-legend.fontsize      : 20
+legend.fontsize      : 24
 
 ## figure size
 figure.figsize     : 21, 25    ## figure size in inches
