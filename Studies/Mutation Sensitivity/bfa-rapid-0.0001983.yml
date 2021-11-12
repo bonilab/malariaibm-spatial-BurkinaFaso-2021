@@ -2,9 +2,9 @@
 #
 # Boni Lab
 #
-# BURKINA FASO model configuration for drug policy alterations
-# in which the private market is eliminated in favor of the 
-# recommended therapy plus severe treatments.
+# BURKINA FASO model configuration sensitivity analysis to the 
+# rapid elimination of the private market, with a mutation rate 
+# 10x slower than the status quo.
 #
 # PfPR data for calibration comes from the Malaria Atlas Project
 # projections for 2017.
@@ -232,11 +232,11 @@ events:
       # Artemisinin
       - day: 2018/1/1
         drug_id: 0
-        mutation_probability: 0.001983
+        mutation_probability: 0.0001983
       # Amodiaquine
       - day: 2018/1/1
         drug_id: 1
-        mutation_probability: 0.001983
+        mutation_probability: 0.0001983
       # Sulfadoxine/pyrimethamine
       - day: 2018/1/1
         drug_id: 2
@@ -244,19 +244,19 @@ events:
       # Chloroquine
       - day: 2018/1/1
         drug_id: 3
-        mutation_probability: 0.001983
+        mutation_probability: 0.0001983
       # Lumefantrine
       - day: 2018/1/1
         drug_id: 4
-        mutation_probability: 0.001983
+        mutation_probability: 0.0001983
       # Piperaquine
       - day: 2018/1/1
         drug_id: 5
-        mutation_probability: 0.001983
+        mutation_probability: 0.0001983
       # Mefloquine
       - day: 2018/1/1
         drug_id: 6
-        mutation_probability: 0.001983
+        mutation_probability: 0.0001983
       # Quinine
       - day: 2018/1/1
         drug_id: 7

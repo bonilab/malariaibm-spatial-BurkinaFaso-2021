@@ -2,9 +2,8 @@
 #
 # Boni Lab
 #
-# BURKINA FASO model configuration for drug policy alterations
-# in which the private market is eliminated in favor of the 
-# recommended therapy plus severe treatments.
+# BURKINA FASO model configuration sensitivity analysis of the 
+# for status quo, to the mutation rate for de novo emergence.
 #
 # PfPR data for calibration comes from the Malaria Atlas Project
 # projections for 2017.
@@ -159,8 +158,9 @@ immune_system_information:
   # (per year) age-dependent faster acquisition of immunity from age 1 to age 10
   immune_inflation_rate: 0.01
 
-  # Max probability of experiencing symptoms as a result of a new infection
+  # mix and max probabilities of experiencing symptoms as a result of a new infection
   # the actual probability will depend on the host's immunity
+  min_clinical_probability: 0.005
   max_clinical_probability: 0.99
 
   # slope of sigmoidal prob-v-immunity function (parameter z in supplement of 2015 LGH paper) 
@@ -173,7 +173,7 @@ immune_system_information:
   factor_effect_age_mature_immunity: 1
 
   # Adjust the infliction point in the curve
-  midpoint: 0.15
+  midpoint: 0.15  
 
 # Settings that determine how long an individual stays in a given location
 circulation_info:
@@ -223,7 +223,7 @@ events:
   - name: change_treatment_strategy
     info:
       - day: 2021/1/1
-        strategy_id: 1        
+        strategy_id: 1          
   - name: turn_off_mutation
     info:
       - day: 2007/1/1
@@ -232,11 +232,11 @@ events:
       # Artemisinin
       - day: 2018/1/1
         drug_id: 0
-        mutation_probability: 0.001983
+        mutation_probability: 0.0003966
       # Amodiaquine
       - day: 2018/1/1
         drug_id: 1
-        mutation_probability: 0.001983
+        mutation_probability: 0.0003966
       # Sulfadoxine/pyrimethamine
       - day: 2018/1/1
         drug_id: 2
@@ -244,19 +244,19 @@ events:
       # Chloroquine
       - day: 2018/1/1
         drug_id: 3
-        mutation_probability: 0.001983
+        mutation_probability: 0.0003966
       # Lumefantrine
       - day: 2018/1/1
         drug_id: 4
-        mutation_probability: 0.001983
+        mutation_probability: 0.0003966
       # Piperaquine
       - day: 2018/1/1
         drug_id: 5
-        mutation_probability: 0.001983
+        mutation_probability: 0.0003966
       # Mefloquine
       - day: 2018/1/1
         drug_id: 6
-        mutation_probability: 0.001983
+        mutation_probability: 0.0003966
       # Quinine
       - day: 2018/1/1
         drug_id: 7
@@ -542,17 +542,19 @@ therapy_db:
 # Drug-deployment strategy - baseline represents the survey data for Burkina Faso
 strategy_db:
   0:
-    # AL, ASAQ, ASMQ, DP, ADQ, AS, CQ, QUIN, SP
+    # AL (1), ASAQ (0), ASMQ (2), DP (3), ADQ (4), AS (5), CQ (6), QUIN (7), SP (8)
+    #   0.68,    0.025,    0.013,  0.049,   0.124,  0.022,  0.015,    0.056,  0.016
     name: BurkinaFaso-Baseline
     type: MFT
     therapy_ids: [1, 0, 2, 3, 4, 5, 6, 7, 8]
-    distribution: [0.68, 0.025, 0.013, 0.049, 0.124, 0.022, 0.015, 0.056, 0.017]
-  1:
-    # AL, DP, AS, QUIN
-    name: BurkinaFaso-Rapid
+    distribution: [0.68, 0.025, 0.013, 0.049, 0.124, 0.022, 0.015, 0.056, 0.016]
+  1: 
+    # AL (1), DP (3), AS (5), QUIN (7), ASMQ (2), ADQ (4), CQ (6), SP (8)
+    #  0.703,  0.051,  0.022,    0.056,   0.0131,   0.124,  0.015,  0.016
+    name: BurkinaFaso-BaselineNoASAQ
     type: MFT
-    therapy_ids: [1, 3, 5, 7]
-    distribution: [ 0.86, 0.062, 0.022, 0.056]
+    therapy_ids: [1, 3, 5, 7, 2, 4, 6, 8]
+    distribution: [0.703, 0.051, 0.022, 0.056, 0.013, 0.124, 0.015, 0.016]
 initial_strategy_id: 0
 
 # Days from end of liver-stage infection to appearance of symptoms
