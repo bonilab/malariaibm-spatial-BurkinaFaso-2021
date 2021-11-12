@@ -9,6 +9,7 @@ function [data, labels] = scan(path, report_function)
     for ndx = 1:length(files)
         if ~files(ndx).isdir, continue; end
         if strcmp(files(ndx).name(1), '.'), continue; end
+        if strcmp(files(ndx).name, 'annual-data'), continue; end
         values = report_function(fullfile(files(ndx).folder, files(ndx).name), files(ndx).name);
         [~, ~, label] = parse_name(files(ndx).name);
         labels{end + 1} = label;

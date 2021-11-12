@@ -78,7 +78,7 @@ def prepare(filter, genotypes):
     return data, dates, replicates
 
 
-def plot(studyDate, title, filename, data, dates, replicates, type='median'):
+def plot(studyDate, title, filename, data, dates, replicates, type='median', ylimit=None):
 
     # Based on Tol color palette
     colors = ['#DDCC77', '#882255', '#44AA99', '#332288' ]
@@ -111,6 +111,8 @@ def plot(studyDate, title, filename, data, dates, replicates, type='median'):
             sys.exit(-1)
 
         # Plot the line and update the color index
+        if ylimit is not None:
+            plt.ylim(ylimit)
         plt.plot(dates, plotData, label=genotype, linewidth=2, color=colors[colorIndex])
         colorIndex += 1
         
@@ -124,6 +126,7 @@ def plot(studyDate, title, filename, data, dates, replicates, type='median'):
     plt.savefig(filename)
     plt.close()
     print("Generated plot with {} line".format(type))
+    if ylimit is not None: print("Used fixed y-axis limits")
     print("Saved as: {}".format(filename))
 
 
@@ -136,8 +139,19 @@ if __name__ == "__main__":
 
     # Immediate AL/DP MFT and private market elimination
     intermediary = prepare('../Analysis/Loader/out/bfa-aldp-rapid/*-frequencies.csv', genotypes)
-    plot('2007-01-01', 'Genotype Frequency with Immediate AL/DHA-PPQ MFT and Private Market Elimination', 'bfa-aldp-rapid-genotype-frequency.png', *intermediary)
+    plot('2007-01-01', 'Genotype Frequency with Immediate AL/DHA-PPQ MFT and Private Market Elimination', 'out/bfa-aldp-rapid-genotype-frequency.png', *intermediary)
 
     # Ten-year phase in of AL/DP MFT and private market elimination
     intermediary = prepare('../Analysis/Loader/out/bfa-aldp10-tenyear/*-frequencies.csv', genotypes)
-    plot('2007-01-01', 'Genotype Frequency with Phased in AL/DHA-PPQ MFT and Private Market Elimination over 10 years', 'bfa-aldp10-tenyear-genotype-frequency.png', *intermediary)    
+    plot('2007-01-01', 'Genotype Frequency with Phased in AL/DHA-PPQ MFT and Private Market Elimination over 10 years', 'out/bfa-aldp10-tenyear-genotype-frequency.png', *intermediary) 
+
+    # Sensitivity analysis
+    intermediary = prepare('../Analysis/Loader/out/bfa-0.01983/*-frequencies.csv', genotypes)
+    plot('2007-01-01', 'Genotype Frequency with Very Fast Mutation Rate (0.01983)', 'out/bfa-0.01983-genotype-frequency.png', *intermediary, ylimit=[pow(10, -8), pow(10, 0)])
+    intermediary = prepare('../Analysis/Loader/out/bfa-0.009915/*-frequencies.csv', genotypes)
+    plot('2007-01-01', 'Genotype Frequency with Fast Mutation Rate (0.009915)', 'out/bfa-0.009915-genotype-frequency.png', *intermediary, ylimit=[pow(10, -8), pow(10, 0)])
+    intermediary = prepare('../Analysis/Loader/out/bfa-0.0003966/*-frequencies.csv', genotypes)
+    plot('2007-01-01', 'Genotype Frequency with Slow Mutation Rate (0.0003966)', 'out/bfa-0.0003966-genotype-frequency.png', *intermediary, ylimit=[pow(10, -8), pow(10, 0)])
+    intermediary = prepare('../Analysis/Loader/out/bfa-0.0001983/*-frequencies.csv', genotypes)
+    plot('2007-01-01', 'Genotype Frequency with Very Slow Mutation Rate (0.0001983)', 'out/bfa-0.0001983-genotype-frequency.png', *intermediary, ylimit=[pow(10, -8), pow(10, 0)])
+    
