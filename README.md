@@ -10,6 +10,8 @@ Repository to accompany Zupko et al. (2021) "Long-term effects of increased adop
 
 This repository contains a frozen snapshot of the code and intermediate data used to prepare the manuscript. Due to the size of the intermediate data (207 MB) this repository uses [Git Large File Storage](https://git-lfs.github.com/) and may be limited in terms of bandwidth as a result.  All studies run by the simulation use YAML files (in Studies) to provide the configuration and ASC files (in Data/GIS) for spatial data. 
 
+Due to the complex nature of the simuation, [primary living documentation](https://github.com/rjzupkoii/PSU-CIDD-Malaria-Simulation) to build and run the simuation is hosted with the repository that contains active development. The version 4.1.0 code base was used to run the replicates used in manuscript revisions, while the earlier 4.0.0 code base was used for th [orginal draft submitted to medRxiv](https://doi.org/10.1101/2021.08.20.21262380).
+
 ## Organization
 
 Contents of the Study directory are organized in the following fashion:
@@ -60,7 +62,7 @@ Codename:       Maipo
 ---
 
 ### Original Repositories
-- Malaria Simulation, version 4.0: https://github.com/rjzupkoii/PSU-CIDD-Malaria-Simulation
+- Malaria Simulation, version 4.1.0: https://github.com/rjzupkoii/PSU-CIDD-Malaria-Simulation
 - Burkina Faso analysis and plots: https://github.com/rjzupkoii/PSU-CIDD-Burkina-Faso
 - Support scripts and infrastructure: https://github.com/bonilab/PSU-CIDD-MaSim-Support
 
