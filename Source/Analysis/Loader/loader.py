@@ -37,20 +37,20 @@ def get_580y_frequency_subset(replicateId, subset):
             sum(clinicaloccurrences) AS clinicaloccurrences,
             sum(weightedoccurrences) AS weightedoccurrences
         FROM (
-            SELECT md.replicateid, md.id, mgd.locationid, md.dayselapsed,
+            SELECT md.replicateid, md.id, mgd.location, md.dayselapsed,
                 sum(CASE WHEN g.name ~ '^.....Y..' THEN mgd.clinicaloccurrences ELSE 0 END) AS clinicaloccurrences,
                 sum(CASE WHEN g.name ~ '^.....Y..' THEN mgd.weightedoccurrences ELSE 0 END) AS weightedoccurrences
             FROM sim.monthlydata md
                 INNER JOIN sim.monthlygenomedata mgd ON mgd.monthlydataid = md.id
                 INNER JOIN sim.genotype g ON g.id = mgd.genomeid
             WHERE md.replicateid = %(replicateId)s AND md.dayselapsed in ({})
-            GROUP BY md.id, mgd.locationid) one
+            GROUP BY md.id, mgd.location) one
         INNER JOIN (
-            SELECT md.id, msd.locationid, msd.infectedindividuals 
+            SELECT md.id, msd.location, msd.infectedindividuals 
             FROM sim.monthlydata md
                 INNER JOIN sim.monthlysitedata msd ON msd.monthlydataid = md.id
-            WHERE md.replicateid = %(replicateId)s AND md.dayselapsed in ({})) two ON one.id = two.id AND one.locationid = two.locationid
-        INNER JOIN sim.location l on l.id = one.locationid
+            WHERE md.replicateid = %(replicateId)s AND md.dayselapsed in ({})) two ON one.id = two.id AND one.location = two.location
+        INNER JOIN sim.location l on l.id = one.location
         GROUP BY dayselapsed, l.x, l.y, infectedindividuals""".format(subset, subset)
     return select(sql, {'replicateId':replicateId, 'startDay':startDay})
 
@@ -89,8 +89,9 @@ def get_annual_data(studyId, dates, publicmarket):
 # Get a list of all of the studies (i.e., configurations) associated with this studyId
 def get_studies(studyId):
     sql = """
-    SELECT c.id, replace(c.filename, '.yml', '') AS filename
+    SELECT DISTINCT c.id, replace(c.filename, '.yml', '') AS filename, r.aggregationlevel
     FROM sim.configuration c
+        INNER JOIN sim.replicate r on r.configurationid = c.id
     WHERE c.studyid = %(studyId)s"""
     return select(sql, {'studyId':studyId})
 
@@ -138,7 +139,7 @@ def get_genotype_summary(replicateId, startDay):
             sum(clinicaloccurrences) AS clinicaloccurrences,
             sum(weightedoccurrences) AS weightedoccurrences
         FROM (
-            SELECT md.replicateid, md.id, mgd.locationid, md.dayselapsed,
+            SELECT md.replicateid, md.id, mgd.location, md.dayselapsed,
                 sum(CASE WHEN g.name ~ '^.....Y..' THEN mgd.occurrences ELSE 0 END) AS occurrences,
                 sum(CASE WHEN g.name ~ '^.....Y..' THEN mgd.clinicaloccurrences ELSE 0 END) AS clinicaloccurrences,
                 sum(CASE WHEN g.name ~ '^.....Y..' THEN mgd.weightedoccurrences ELSE 0 END) AS weightedoccurrences
@@ -146,13 +147,13 @@ def get_genotype_summary(replicateId, startDay):
                 INNER JOIN sim.monthlygenomedata mgd ON mgd.monthlydataid = md.id
                 INNER JOIN sim.genotype g ON g.id = mgd.genomeid
             WHERE md.replicateid = %(replicateId)s AND md.dayselapsed > %(startDay)s
-            GROUP BY md.id, mgd.locationid) one
+            GROUP BY md.id, mgd.location) one
         INNER JOIN (
-            SELECT md.id, msd.locationid, msd.infectedindividuals 
+            SELECT md.id, msd.location, msd.infectedindividuals 
             FROM sim.monthlydata md
                 INNER JOIN sim.monthlysitedata msd ON msd.monthlydataid = md.id
-            WHERE md.replicateid = %(replicateId)s AND md.dayselapsed > %(startDay)s) two ON one.id = two.id AND one.locationid = two.locationid
-        INNER JOIN sim.location l on l.id = one.locationid
+            WHERE md.replicateid = %(replicateId)s AND md.dayselapsed > %(startDay)s) two ON one.id = two.id AND one.location = two.location
+        INNER JOIN sim.location l on l.id = one.location
         GROUP BY dayselapsed, l.district"""
     return select(sql, {'replicateId':replicateId, 'startDay':startDay})
 
@@ -168,12 +169,12 @@ def get_treatment_summary(replicateId, startDay):
 	        sum(population) as population
         FROM (
             SELECT md.id, 
-                msd.locationid, md.dayselapsed, msd.infectedindividuals, msd.population,
+                msd.location, md.dayselapsed, msd.infectedindividuals, msd.population,
                 msd.clinicalepisodes, msd.treatmentfailures, msd.nontreatment
         FROM sim.monthlydata md
             INNER JOIN sim.monthlysitedata msd ON msd.monthlydataid = md.id
         WHERE md.replicateid = %(replicateId)s AND md.dayselapsed > %(startDay)s) one
-        INNER JOIN sim.location l on l.id = one.locationid
+        INNER JOIN sim.location l on l.id = one.location
         GROUP BY dayselapsed, l.district"""
     return select(sql, {'replicateId':replicateId, 'startDay':startDay})
 
@@ -415,8 +416,11 @@ def main(studyId, burnIn, subset, modelStartDate):
     for study in studies:
         # Process the replicates for this study
         replicates = get_replicates(study[0], study[1])
-        process_frequencies(replicates, subset)
         process_summaries(replicates, burnIn, modelStartDate)
+
+        # Only generate the frequency map if logging was at the cellular level
+        if study[2] == 'C':
+            process_frequencies(replicates, subset)
         
         # Update the status for the user
         if len(studies) > 1:
