@@ -8,7 +8,7 @@ Repository to accompany Zupko et al. (2021) "Long-term effects of increased adop
 
 # Overview
 
-This repository contains a frozen snapshot of the code and intermediate data used to prepare the manuscript. Due to the size of the intermediate data (349 MB) this repository uses [Git Large File Storage](https://git-lfs.github.com/) and may be limited in terms of bandwidth as a result.  All studies run by the simulation use YAML files (in Studies) to provide the configuration and ASC files (in Data/GIS) for spatial data. 
+This repository contains a frozen snapshot of the code and intermediate data used to prepare the manuscript. Due to the size of the intermediate data (207 MB) this repository uses [Git Large File Storage](https://git-lfs.github.com/) and may be limited in terms of bandwidth as a result.  All studies run by the simulation use YAML files (in Studies) to provide the configuration and ASC files (in Data/GIS) for spatial data. 
 
 ## Organization
 
