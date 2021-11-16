@@ -20,14 +20,14 @@ from pathlib import Path
 
 def plot_core(filter, yaxis, filename, showmeans=True):
     labels  = ['Baseline', 
-        '10 year AL/DP MFT', 
-        'Rapid AL/DP MFT',
+        '10 year AL/DHA-PPQ MFT', 
+        'Rapid AL/DHA-PPQ MFT',
         '10 year Private Market Elimination',
-        '10 year Private Market Elimination,\n10 year AL/DP MFT',
-        '10 year Private Market Elimination,\nRapid AL/DP MFT',
+        '10 year Private Market Elimination,\n10 year AL/DHA-PPQ MFT',
+        '10 year Private Market Elimination,\nRapid AL/DHA-PPQ MFT',
         'Rapid Private Market Elimination',
-        'Rapid Private Market Elimination,\n10 year AL/DP MFT',
-        'Rapid Private Market Elimination,\nRapid AL/DP MFT']
+        'Rapid Private Market Elimination,\n10 year AL/DHA-PPQ MFT',
+        'Rapid Private Market Elimination,\nRapid AL/DHA-PPQ MFT']
     plot(filter, yaxis, filename, labels, showmeans)
 
 
