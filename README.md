@@ -1,16 +1,21 @@
 # malariaibm-spatial-BurkinaFaso-2021
 
-Repository to accompany Zupko et al. (2021) "Long-term effects of increased adoption of artemisinin combination therapies in Burkina Faso"
-
 [Penn State](https://www.psu.edu/) - [Center for Infectious Disease Dynamics (CIDD)](https://www.huck.psu.edu/institutes-and-centers/center-for-infectious-disease-dynamics) - [Boni Lab](http://mol.ax/)
 
 ---
 
 # Overview
 
-This repository contains a frozen snapshot of the code and intermediate data used to prepare the manuscript. Due to the size of the intermediate data (207 MB) this repository uses [Git Large File Storage](https://git-lfs.github.com/) and may be limited in terms of bandwidth as a result.  All studies run by the simulation use YAML files (in Studies) to provide the configuration and ASC files (in Data/GIS) for spatial data. 
+This repository contains a frozen snapshot of the code and intermediate data used to prepare the manuscript by Zupko et al. (2022) which appeared in PLOS Global Public Helath. Due to the size of the intermediate data (207 MB) this repository uses [Git Large File Storage](https://git-lfs.github.com/) and may be limited in terms of bandwidth as a result.  All studies run by the simulation use YAML files (in Studies) to provide the configuration and ASC files (in Data/GIS) for spatial data. 
 
 Due to the complex nature of the simuation, [primary living documentation](https://github.com/rjzupkoii/PSU-CIDD-Malaria-Simulation) to build and run the simuation is hosted with the repository that contains active development. The version 4.1.0 code base was used to run the replicates used in manuscript revisions, while the earlier 4.0.0 code base was used for th [orginal draft submitted to medRxiv](https://doi.org/10.1101/2021.08.20.21262380).
+
+---
+
+Please cite the manuscript as follows:
+
+Zupko, R. J., Nguyen, T. D., Somé, A. F., Tran, T. N.-A., Gerardin, J., Dudas, P., Giang, D. D. H., Tran, K. T., Wesolowski, A., Ouédraogo, J.-B., & Boni, M. F. (2022). Long-term effects of increased adoption of artemisinin combination therapies in Burkina Faso. *PLOS Global Public Health*, 2(2), e0000111. https://doi.org/10.1371/journal.pgph.0000111
+
 
 ## Organization
 
